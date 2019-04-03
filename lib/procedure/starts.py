@@ -9,8 +9,9 @@ import numpy as np
 import torch
 import random
 
+
 def prepare_seed(rand_seed):
-  np.random.seed(rand_seed)
-  random.seed(rand_seed)
-  torch.manual_seed(rand_seed)
-  torch.cuda.manual_seed_all(rand_seed)
+    np.random.seed(rand_seed)
+    random.seed(rand_seed)
+    torch.manual_seed(rand_seed)
+    torch.cuda.manual_seed_all(rand_seed)

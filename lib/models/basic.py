@@ -7,14 +7,16 @@
 from .cpm_vgg16 import cpm_vgg16
 from .LK import LK
 
+
 def obtain_model(configure, points):
-  if configure.arch == 'cpm_vgg16':
-    net = cpm_vgg16(configure, points)
-  else:
-    raise TypeError('Unkonw type : {:}'.format(configure.arch))
-  return net
+    if configure.arch == 'cpm_vgg16':
+        net = cpm_vgg16(configure, points)
+    else:
+        raise TypeError('Unkonw type : {:}'.format(configure.arch))
+    return net
+
 
 def obtain_LK(configure, lkconfig, points):
-  model = obtain_model(configure, points)
-  lk_model = LK(model, lkconfig, points)
-  return lk_model
+    model = obtain_model(configure, points)
+    lk_model = LK(model, lkconfig, points)
+    return lk_model
