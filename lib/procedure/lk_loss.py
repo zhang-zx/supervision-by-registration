@@ -39,7 +39,7 @@ def lk_target_loss(batch_locs, batch_scos, batch_next, batch_fbak, batch_back, l
 
     # Check the confidence score for each point
     for ibatch in range(batch):
-        if video_or_not[ibatch] == False:
+        if not video_or_not[ibatch]:
             sequence_checks[ibatch, :] = False
         else:
             for iseq in range(sequence):
@@ -67,15 +67,19 @@ def lk_target_loss(batch_locs, batch_scos, batch_next, batch_fbak, batch_back, l
                     back_distance = torch.dist(targets, backPts)
                     forw_distance = torch.dist(targets, nextPts)
 
-                # print ('[{:02d},{:02d},{:02d}] : {:.2f}, {:.2f}, {:.2f}'.format(ibatch, ipts, iseq, fbak_distance.item(), back_distance.item(), forw_distance.item()))
-                # loss += back_distance + forw_distance
+                # print ('[{:02d},{:02d},{:02d}] : {:.2f}, {:.2f}, {:.2f}'.format(ibatch, ipts, iseq,
+                # fbak_distance.item(), back_distance.item(), forw_distance.item())) loss += back_distance +
+                # forw_distance
 
                 if fbak_distance.item() > lk_config.fb_thresh or fbak_distance.item() < lk_config.eps:  # forward-backward-check
-                    if iseq + 1 < sequence: sequence_checks[ibatch, ipts] = False
+                    if iseq + 1 < sequence:
+                        sequence_checks[ibatch, ipts] = False
                 if forw_distance.item() > lk_config.forward_max or forw_distance.item() < lk_config.eps:  # to avoid the tracker point is too far
-                    if iseq > 0: sequence_checks[ibatch, ipts] = False
+                    if iseq > 0:
+                        sequence_checks[ibatch, ipts] = False
                 if back_distance.item() > lk_config.forward_max or back_distance.item() < lk_config.eps:  # to avoid the tracker point is too far
-                    if iseq + 1 < sequence: sequence_checks[ibatch, ipts] = False
+                    if iseq + 1 < sequence:
+                        sequence_checks[ibatch, ipts] = False
 
                 if iseq > 0:
                     if lk_config.stable:

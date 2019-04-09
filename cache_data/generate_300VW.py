@@ -4,10 +4,14 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 #
-import numpy as np
-import math, os, pdb, sys, glob
+import glob
+import math
+import os
+import sys
 from os import path as osp
 from pathlib import Path
+
+import numpy as np
 
 lib_dir = (Path(__file__).parent / '..' / 'lib').resolve()
 if str(lib_dir) not in sys.path: sys.path.insert(0, str(lib_dir))
