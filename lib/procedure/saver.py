@@ -6,8 +6,7 @@
 #
 import torch
 
-
 def save_checkpoint(state, filename, logger):
-    torch.save(state, filename)
-    logger.log('save checkpoint into {}'.format(filename))
-    return filename
+  torch.save(state, filename)
+  logger.log('save checkpoint into {}'.format(filename))
+  return filename
