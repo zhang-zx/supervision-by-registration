@@ -122,7 +122,7 @@ def make_layers(cfg, batch_norm=False):
 
 def cpm_vgg11(config, pts):
     print('Initialize cpm-vgg11 with configure : {}'.format(config))
-    model = VGG11_base(make_layers(cfg['A']), config, pts)
+    model = VGG11_base(make_layers(cfg['B']), config, pts)
     model.apply(weights_init_cpm)
 
     if config.pretrained:
