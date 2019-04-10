@@ -94,8 +94,8 @@ class VGG11_base(nn.Module):
 
 
 # use vgg11 conv1_1 to conv4_4 as feature extracation
-model_urls = 'https://download.pytorch.org/models/vgg11-bbd30ac9.pth'
-
+# model_urls = 'https://download.pytorch.org/models/vgg11-bbd30ac9.pth'
+model_urls = 'https://download.pytorch.org/models/vgg16-397923af.pth'
 cfg = {
     'A': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512],
     'B': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512],
