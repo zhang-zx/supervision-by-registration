@@ -97,7 +97,7 @@ class VGG11_base(nn.Module):
 # model_urls = 'https://download.pytorch.org/models/vgg11-bbd30ac9.pth'
 model_urls = 'https://download.pytorch.org/models/vgg16-397923af.pth'
 cfg = {
-    'A': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512],
+    'A': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512],
     'B': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512],
     'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512],
     'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M', 512, 512, 512, 512],
@@ -122,7 +122,7 @@ def make_layers(cfg, batch_norm=False):
 
 def cpm_vgg11(config, pts):
     print('Initialize cpm-vgg11 with configure : {}'.format(config))
-    model = VGG11_base(make_layers(cfg['D']), config, pts)
+    model = VGG11_base(make_layers(cfg['A']), config, pts)
     model.apply(weights_init_cpm)
 
     if config.pretrained:
