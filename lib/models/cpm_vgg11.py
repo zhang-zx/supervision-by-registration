@@ -18,14 +18,23 @@ from .initialization import weights_init_cpm
 
 
 class VGG11_base(nn.Module):
-    def __init__(self, features, config, pts_num):
+    def __init__(self, config, pts_num):
         super(VGG11_base, self).__init__()
 
         self.config = deepcopy(config)
         self.downsample = 8
         self.pts_num = pts_num
 
-        self.features = features
+        self.features = nn.Sequential(
+          nn.Conv2d(  3,  64, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+          nn.MaxPool2d(kernel_size=2, stride=2),
+          nn.Conv2d( 64, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+          nn.MaxPool2d(kernel_size=2, stride=2),
+          nn.Conv2d(128, 256, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+          nn.Conv2d(256, 256, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+          nn.MaxPool2d(kernel_size=2, stride=2),
+          nn.Conv2d(256, 512, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+          nn.Conv2d(512, 512, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True))
 
         self.CPM_feature = nn.Sequential(
             nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU(inplace=True),  # CPM_1
@@ -94,35 +103,13 @@ class VGG11_base(nn.Module):
 
 
 # use vgg11 conv1_1 to conv4_4 as feature extracation
-# model_urls = 'https://download.pytorch.org/models/vgg11-bbd30ac9.pth'
-model_urls = 'https://download.pytorch.org/models/vgg16-397923af.pth'
-cfg = {
-    'A': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512],
-    'B': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512],
-    'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512],
-    'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M', 512, 512, 512, 512],
-}
-
-
-def make_layers(cfg, batch_norm=False):
-    layers = []
-    in_channels = 3
-    for v in cfg:
-        if v == 'M':
-            layers += [nn.MaxPool2d(kernel_size=2, stride=2)]
-        else:
-            conv2d = nn.Conv2d(in_channels, v, kernel_size=3, dilation=1, padding=1)
-            if batch_norm:
-                layers += [conv2d, nn.BatchNorm2d(v), nn.ReLU(inplace=True)]
-            else:
-                layers += [conv2d, nn.ReLU(inplace=True)]
-            in_channels = v
-    return nn.Sequential(*layers)
+model_urls = 'https://download.pytorch.org/models/vgg11-bbd30ac9.pth'
+# model_urls = 'https://download.pytorch.org/models/vgg16-397923af.pth'
 
 
 def cpm_vgg11(config, pts):
     print('Initialize cpm-vgg11 with configure : {}'.format(config))
-    model = VGG11_base(make_layers(cfg['A']), config, pts)
+    model = VGG11_base(config, pts)
     model.apply(weights_init_cpm)
 
     if config.pretrained:
