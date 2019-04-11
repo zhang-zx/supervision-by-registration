@@ -4,13 +4,13 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 #
-from scipy.ndimage.interpolation import zoom
+# from scipy.ndimage.interpolation import zoom
 from collections import OrderedDict
-import utils
-import torch
+# import utils
+# import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import copy, numbers, numpy as np
+# import torch.nn.functional as F
+# import copy, numbers, numpy as np
 
 def get_parameters(model, bias):
   for m in model.modules():
