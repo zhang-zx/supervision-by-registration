@@ -1,6 +1,12 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 CUDA_VISIBLE_DEVICES=2,3 python ./exps/lk_main.py \
-	--train_lists ./cache_data/lists/300VW/300VW.train.lst.none \
+	--train_lists ./cache_data/lists/300VW/300VW.train.lst001.none \
+	              ./cache_data/lists/300VW/300VW.train.lst002.none \
+	              ./cache_data/lists/300VW/300VW.train.lst015.none \
+	              ./cache_data/lists/300VW/300VW.train.lst112.none \
+	              ./cache_data/lists/300VW/300VW.train.lst119.none \
+	              ./cache_data/lists/300VW/300VW.train.lst144.none \
+	              ./cache_data/lists/300VW/300VW.train.lst160.none \
 	              ./cache_data/lists/300W/300w.train.DET \
 	--eval_ilists ./cache_data/lists/demo/demo-sbr.lst \
 	--num_pts 68 \
