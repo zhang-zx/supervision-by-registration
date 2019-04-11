@@ -116,17 +116,17 @@ class MobileNetV2(nn.Module):
             stages.append(stagex)
         self.stages = nn.ModuleList(stages)
         # weight initialization
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                nn.init.kaiming_normal_(m.weight, mode='fan_out')
-                if m.bias is not None:
-                    nn.init.zeros_(m.bias)
-            elif isinstance(m, nn.BatchNorm2d):
-                nn.init.ones_(m.weight)
-                nn.init.zeros_(m.bias)
-            elif isinstance(m, nn.Linear):
-                nn.init.normal_(m.weight, 0, 0.01)
-                nn.init.zeros_(m.bias)
+        # for m in self.modules():
+        #     if isinstance(m, nn.Conv2d):
+        #         nn.init.kaiming_normal_(m.weight, mode='fan_out')
+        #         if m.bias is not None:
+        #             nn.init.zeros_(m.bias)
+        #     elif isinstance(m, nn.BatchNorm2d):
+        #         nn.init.ones_(m.weight)
+        #         nn.init.zeros_(m.bias)
+        #     elif isinstance(m, nn.Linear):
+        #         nn.init.normal_(m.weight, 0, 0.01)
+        #         nn.init.zeros_(m.bias)
 
     # def specify_parameter(self, base_lr, base_weight_decay):
     #     params_dict = [
@@ -169,5 +169,6 @@ class MobileNetV2(nn.Module):
 def cpm_mobileNet(config, pts):
     print('Initialize cpm-mobileNet with configure : {}'.format(config))
     model = MobileNetV2(config, pts)
+    model.apply(weights_init_cpm)
     # model.apply(weights_init_cpm)
     return model
