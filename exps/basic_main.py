@@ -110,7 +110,7 @@ def main(args):
     net_param_dict = net.specify_parameter(opt_config.LR, opt_config.Decay)
   else:
     net_param_dict = net.parameters()
-  pdb.set_trace()
+  # pdb.set_trace()
   optimizer, scheduler, criterion = obtain_optimizer(net_param_dict, opt_config, logger)
   logger.log('criterion : {:}'.format(criterion))
   net, criterion = net.cuda(), criterion.cuda()
