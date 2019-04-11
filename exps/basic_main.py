@@ -100,7 +100,7 @@ def main(args):
   logger.log("=> network :\n {}".format(net))
   logger.log("###################network flops###############")
   flops, params = profile(net, input_size=(1, 3, 224, 224))
-  logger.log("flops:{:d}, params:{:d}".format(flops, params))
+  logger.log("flops:{:f}, params:{:f}".format(flops, params))
 
 
   logger.log('Training-data : {:}'.format(train_data))
