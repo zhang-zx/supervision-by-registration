@@ -26,7 +26,6 @@ def p2string(point):
 
 def lk_target_loss(batch_locs, batch_scos, batch_next, batch_fbak, batch_back, lk_config, video_or_not, mask, nopoints):
   # return the calculate target from the first frame to the whole sequence.
-  pdb.set_trace()
   batch, sequence, num_pts = lk_input_check(batch_locs, batch_scos, batch_next, batch_fbak, batch_back)
   # remove the background
   num_pts = num_pts - 1

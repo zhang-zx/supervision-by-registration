@@ -99,7 +99,6 @@ class VGG11_base(nn.Module):
             batch_locs.append(batch_location)
             batch_scos.append(batch_score)
         batch_locs, batch_scos = torch.stack(batch_locs), torch.stack(batch_scos)
-        pdb.set_trace()
         return batch_cpms, batch_locs, batch_scos
 
 
