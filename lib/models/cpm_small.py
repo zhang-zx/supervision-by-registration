@@ -58,7 +58,7 @@ class VGG11_base(nn.Module):
                 # nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
                 nn.Conv2d(16, 16, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
                 nn.Conv2d(16, 16, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
-                nn.Conv2d(16, 16, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+                # nn.Conv2d(16, 16, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
                 # nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
                 # nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
                 nn.Conv2d(16, 16, kernel_size=1, padding=0), nn.ReLU(inplace=True),
