@@ -62,7 +62,7 @@ class MobileNetV2(nn.Module):
     def __init__(self, config, pts_num, width_mult=1.0):
         super(MobileNetV2, self).__init__()
         self.config = deepcopy(config)
-        self.downsample = 8
+        self.downsample = 16
         self.pts_num = pts_num
         block = InvertedResidual
         input_channel = 32
@@ -71,8 +71,8 @@ class MobileNetV2(nn.Module):
             [1, 16, 1, 1],
             [6, 24, 2, 2],
             [6, 32, 3, 2],
-            # [6, 64, 4, 2],
-            # [6, 96, 3, 1],
+            [6, 64, 4, 2],
+            [6, 96, 3, 1],
             # [6, 160, 3, 2],
             # [6, 320, 1, 1],
         ]
@@ -91,8 +91,8 @@ class MobileNetV2(nn.Module):
         # make it nn.Sequential
         self.features = nn.Sequential(*features)
         self.CPM_feature = nn.Sequential(
-            nn.Conv2d(32, 64, kernel_size=3, padding=1), nn.ReLU(inplace=True),  # CPM_1
-            nn.Conv2d(64, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True))  # CPM_2
+            nn.Conv2d(96, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),  # CPM_1
+            nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True))  # CPM_2
         assert self.config.stages >= 1, 'stages of cpm must >= 1 not : {:}'.format(self.config.stages)
         stage1 = nn.Sequential(
             nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
