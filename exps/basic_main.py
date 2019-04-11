@@ -24,6 +24,7 @@ from log_utils import Logger, AverageMeter, time_for_file, convert_secs2time, ti
 from config_utils import load_configure
 from models import obtain_model
 from optimizer import obtain_optimizer
+import pdb
 
 def main(args):
   assert torch.cuda.is_available(), 'CUDA is not available.'
@@ -109,7 +110,7 @@ def main(args):
     net_param_dict = net.specify_parameter(opt_config.LR, opt_config.Decay)
   else:
     net_param_dict = net.parameters()
-
+  pdb.set_trace()
   optimizer, scheduler, criterion = obtain_optimizer(net_param_dict, opt_config, logger)
   logger.log('criterion : {:}'.format(criterion))
   net, criterion = net.cuda(), criterion.cuda()
