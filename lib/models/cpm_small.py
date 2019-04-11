@@ -22,11 +22,14 @@ from torch import nn
 class ConvBNReLU(nn.Sequential):
     def __init__(self, in_planes, out_planes, kernel_size=3, stride=1, groups=1):
         padding = (kernel_size - 1) // 2
-        super(ConvBNReLU, self).__init__(
+        super(ConvBNReLU, self).__init__()
+        self.features = nn.Sequential(
             nn.Conv2d(in_planes, out_planes, kernel_size, stride, padding, groups=groups, bias=False),
             nn.BatchNorm2d(out_planes),
-            nn.ReLU6(inplace=True)
-        )
+            nn.ReLU6(inplace=True))
+
+    def forward(self, x):
+        return self.features(x)
 
 
 class InvertedResidual(nn.Module):
