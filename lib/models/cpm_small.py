@@ -19,7 +19,7 @@ import pdb
 from torch import nn
 
 
-class ConvBNReLU(nn.Sequential):
+class ConvBNReLU(nn.Module):
     def __init__(self, in_planes, out_planes, kernel_size=3, stride=1, groups=1):
         padding = (kernel_size - 1) // 2
         super(ConvBNReLU, self).__init__()
