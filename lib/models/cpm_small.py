@@ -27,40 +27,40 @@ class VGG11_base(nn.Module):
         self.pts_num = pts_num
 
         self.features = nn.Sequential(
-          nn.Conv2d(  3,  64, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+          nn.Conv2d(  3,  16, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
           nn.MaxPool2d(kernel_size=2, stride=2),
-          nn.Conv2d( 64, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+          nn.Conv2d( 16, 32, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
           nn.MaxPool2d(kernel_size=2, stride=2),
-          nn.Conv2d(128, 256, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
-          nn.Conv2d(256, 256, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+          nn.Conv2d(32, 64, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+          # nn.Conv2d(256, 256, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
           nn.MaxPool2d(kernel_size=2, stride=2),
-          nn.Conv2d(256, 512, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
-          nn.Conv2d(512, 512, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True))
+          nn.Conv2d(64, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+          nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True))
 
         self.CPM_feature = nn.Sequential(
-            nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU(inplace=True),  # CPM_1
-            nn.Conv2d(256, 64, kernel_size=3, padding=1), nn.ReLU(inplace=True))  # CPM_2
+            nn.Conv2d(128, 64, kernel_size=3, padding=1), nn.ReLU(inplace=True),  # CPM_1
+            nn.Conv2d(64, 32, kernel_size=3, padding=1), nn.ReLU(inplace=True))  # CPM_2
 
         assert self.config.stages >= 1, 'stages of cpm must >= 1 not : {:}'.format(self.config.stages)
         stage1 = nn.Sequential(
-            nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.ReLU(inplace=True),
+            nn.Conv2d(32, 32, kernel_size=3, padding=1), nn.ReLU(inplace=True),
             # nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
             # nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
             # nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
             # nn.Conv2d(128, 256, kernel_size=1, padding=0), nn.ReLU(inplace=True),
-            nn.Conv2d(64, pts_num, kernel_size=1, padding=0))
+            nn.Conv2d(32, pts_num, kernel_size=1, padding=0))
         stages = [stage1]
         for i in range(1, self.config.stages):
             stagex = nn.Sequential(
-                nn.Conv2d(64 + pts_num, 64, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
+                nn.Conv2d(32 + pts_num, 32, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
                 # nn.Conv2d(128, 128, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
                 # nn.Conv2d(128, 128, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
                 # nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
-                nn.Conv2d(64, 64, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+                nn.Conv2d(32, 32, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
                 # nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
                 # nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
-                nn.Conv2d(64, 64, kernel_size=1, padding=0), nn.ReLU(inplace=True),
-                nn.Conv2d(64, pts_num, kernel_size=1, padding=0))
+                nn.Conv2d(32, 32, kernel_size=1, padding=0), nn.ReLU(inplace=True),
+                nn.Conv2d(32, pts_num, kernel_size=1, padding=0))
             stages.append(stagex)
         self.stages = nn.ModuleList(stages)
 
@@ -111,9 +111,9 @@ def cpm_small(config, pts):
     print('Initialize cpm-vgg11 with configure : {}'.format(config))
     model = VGG11_base(config, pts)
     model.apply(weights_init_cpm)
-
-    if config.pretrained:
-        print('vgg11_base use pre-trained model')
-        weights = model_zoo.load_url(model_urls)
-        model.load_state_dict(weights, strict=False)
+    #
+    # if config.pretrained:
+    #     print('vgg11_base use pre-trained model')
+    #     weights = model_zoo.load_url(model_urls)
+    #     model.load_state_dict(weights, strict=False)
     return model
