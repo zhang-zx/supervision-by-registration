@@ -1,5 +1,5 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
-CUDA_VISIBLE_DEVICES=2,3 python ./exps/lk_main.py \
+CUDA_VISIBLE_DEVICES=0,1 python ./exps/lk_main.py \
 	--train_lists ./cache_data/lists/300VW/300VW.train.lst001.none \
 	              ./cache_data/lists/300VW/300VW.train.lst002.none \
 	              ./cache_data/lists/300VW/300VW.train.lst160.none \

@@ -43,24 +43,24 @@ class VGG11_base(nn.Module):
 
         assert self.config.stages >= 1, 'stages of cpm must >= 1 not : {:}'.format(self.config.stages)
         stage1 = nn.Sequential(
-            nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
+            nn.Conv2d(128, 64, kernel_size=3, padding=1), nn.ReLU(inplace=True),
             # nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
             # nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
             # nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
-            nn.Conv2d(128, 256, kernel_size=1, padding=0), nn.ReLU(inplace=True),
-            nn.Conv2d(256, pts_num, kernel_size=1, padding=0))
+            # nn.Conv2d(128, 256, kernel_size=1, padding=0), nn.ReLU(inplace=True),
+            nn.Conv2d(64, pts_num, kernel_size=1, padding=0))
         stages = [stage1]
         for i in range(1, self.config.stages):
             stagex = nn.Sequential(
-                nn.Conv2d(128 + pts_num, 128, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
-                nn.Conv2d(128, 128, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
+                nn.Conv2d(64 + pts_num, 64, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
                 # nn.Conv2d(128, 128, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
-                nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
-                nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+                # nn.Conv2d(128, 128, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
+                # nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+                nn.Conv2d(64, 64, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
                 # nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
                 # nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
-                nn.Conv2d(128, 128, kernel_size=1, padding=0), nn.ReLU(inplace=True),
-                nn.Conv2d(128, pts_num, kernel_size=1, padding=0))
+                nn.Conv2d(64, 64, kernel_size=1, padding=0), nn.ReLU(inplace=True),
+                nn.Conv2d(64, pts_num, kernel_size=1, padding=0))
             stages.append(stagex)
         self.stages = nn.ModuleList(stages)
 
