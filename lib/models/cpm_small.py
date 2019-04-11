@@ -128,18 +128,18 @@ class MobileNetV2(nn.Module):
                 nn.init.normal_(m.weight, 0, 0.01)
                 nn.init.zeros_(m.bias)
 
-    def specify_parameter(self, base_lr, base_weight_decay):
-        params_dict = [
-            {'params': get_parameters(self.features, bias=False), 'lr': base_lr, 'weight_decay': base_weight_decay},
-            {'params': get_parameters(self.features, bias=True), 'lr': base_lr * 2, 'weight_decay': 0},
-            {'params': get_parameters(self.CPM_feature, bias=False), 'lr': base_lr, 'weight_decay': base_weight_decay},
-            {'params': get_parameters(self.CPM_feature, bias=True), 'lr': base_lr * 2, 'weight_decay': 0},
-            ]
-        for stage in self.stages:
-            params_dict.append(
-                {'params': get_parameters(stage, bias=False), 'lr': base_lr * 4, 'weight_decay': base_weight_decay})
-            params_dict.append({'params': get_parameters(stage, bias=True), 'lr': base_lr * 8, 'weight_decay': 0})
-        return params_dict
+    # def specify_parameter(self, base_lr, base_weight_decay):
+    #     params_dict = [
+    #         {'params': get_parameters(self.features, bias=False), 'lr': base_lr, 'weight_decay': base_weight_decay},
+    #         {'params': get_parameters(self.features, bias=True), 'lr': base_lr * 2, 'weight_decay': 0},
+    #         {'params': get_parameters(self.CPM_feature, bias=False), 'lr': base_lr, 'weight_decay': base_weight_decay},
+    #         {'params': get_parameters(self.CPM_feature, bias=True), 'lr': base_lr * 2, 'weight_decay': 0},
+    #         ]
+    #     for stage in self.stages:
+    #         params_dict.append(
+    #             {'params': get_parameters(stage, bias=False), 'lr': base_lr * 4, 'weight_decay': base_weight_decay})
+    #         params_dict.append({'params': get_parameters(stage, bias=True), 'lr': base_lr * 8, 'weight_decay': 0})
+    #     return params_dict
 
     # return : cpm-stages, locations
     def forward(self, inputs):
