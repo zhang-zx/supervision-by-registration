@@ -12,6 +12,7 @@ from pathlib import Path
 from log_utils import AverageMeter, time_for_file, convert_secs2time
 from .losses import compute_stage_loss, show_stage_loss
 from .lk_loss import lk_target_loss
+import pdb
 
 # train function (forward, backward, update)
 def lk_train(args, loader, net, criterion, optimizer, epoch_str, logger, opt_config, lk_config, use_lk):
@@ -48,6 +49,7 @@ def lk_train(args, loader, net, criterion, optimizer, epoch_str, logger, opt_con
 
     # batch_heatmaps is a list for stage-predictions, each element should be [Batch, Sequence, PTS, H/Down, W/Down]
     batch_heatmaps, batch_locs, batch_scos, batch_next, batch_fback, batch_back = net(inputs)
+    pdb.set_trace()
     annot_heatmaps = [x[:, annotate_index] for x in batch_heatmaps]
     forward_time.update(time.time() - end)
 
