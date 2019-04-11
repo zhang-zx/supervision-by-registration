@@ -15,6 +15,7 @@ from copy import deepcopy
 from .model_utils import get_parameters
 from .basic_batch import find_tensor_peak_batch
 from .initialization import weights_init_cpm
+import pdb
 
 
 class VGG11_base(nn.Module):
@@ -98,7 +99,7 @@ class VGG11_base(nn.Module):
             batch_locs.append(batch_location)
             batch_scos.append(batch_score)
         batch_locs, batch_scos = torch.stack(batch_locs), torch.stack(batch_scos)
-
+        pdb.set_trace()
         return batch_cpms, batch_locs, batch_scos
 
 
