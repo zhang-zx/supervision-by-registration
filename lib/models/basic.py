@@ -14,8 +14,6 @@ def obtain_model(configure, points):
     net = cpm_vgg16(configure, points)
   elif configure.arch == 'cpm_vgg11':
     net = cpm_vgg11(configure, points)
-  elif configure.arch == 'cpm_mobile':
-    net = cpm_mobileNet(configure, points)
   else:
     raise TypeError('Unkonw type : {:}'.format(configure.arch))
   return net
