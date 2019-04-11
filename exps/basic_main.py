@@ -25,6 +25,8 @@ from config_utils import load_configure
 from models import obtain_model
 from optimizer import obtain_optimizer
 import pdb
+from thop import profile
+
 
 def main(args):
   assert torch.cuda.is_available(), 'CUDA is not available.'
@@ -96,6 +98,10 @@ def main(args):
   net = obtain_model(model_config, args.num_pts + 1)
   assert model_config.downsample == net.downsample, 'downsample is not correct : {} vs {}'.format(model_config.downsample, net.downsample)
   logger.log("=> network :\n {}".format(net))
+  logger.log("###################network flops###############")
+  flops, params = profile(net, input_size=(1, 3, 224, 224))
+  logger.log("flops:{:d}, params:{:d}".format(flops, params))
+
 
   logger.log('Training-data : {:}'.format(train_data))
   for i, eval_loader in enumerate(eval_loaders):
