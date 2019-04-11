@@ -39,11 +39,11 @@ class VGG11_base(nn.Module):
 
         self.CPM_feature = nn.Sequential(
             nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU(inplace=True),  # CPM_1
-            nn.Conv2d(256, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True))  # CPM_2
+            nn.Conv2d(256, 64, kernel_size=3, padding=1), nn.ReLU(inplace=True))  # CPM_2
 
         assert self.config.stages >= 1, 'stages of cpm must >= 1 not : {:}'.format(self.config.stages)
         stage1 = nn.Sequential(
-            nn.Conv2d(128, 64, kernel_size=3, padding=1), nn.ReLU(inplace=True),
+            nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.ReLU(inplace=True),
             # nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
             # nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
             # nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
