@@ -6,7 +6,7 @@ CUDA_VISIBLE_DEVICES=0,1 python ./exps/basic_main.py \
 	              ./cache_data/lists/300W/300w.test.full.DET \
 	--num_pts 68 \
 	--model_config ./configs/Detector-small.config \
-	--opt_config ./configs/SGD.config \
+	--opt_config ./configs/SGD-small.config \
 	--save_path ./snapshots/300W-CPM-DET-small \
 	--pre_crop_expand 0.2 --sigma 4 --batch_size 8 \
 	--crop_perturb_max 30 --rotate_max 20 \
