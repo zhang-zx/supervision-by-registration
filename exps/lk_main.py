@@ -98,7 +98,7 @@ def main(args):
   net = obtain_model(model_config, lk_config, args.num_pts + 1)
   assert model_config.downsample == net.downsample, 'downsample is not correct : {} vs {}'.format(model_config.downsample, net.downsample)
   logger.log("=> network :\n {}".format(net))
-  flops, params = profile(net, input_size=(1, 3, 224, 224))
+  flops, params = profile(net, input_size=(1, 1, 3, 224, 224))
   logger.log("flops:{:}, params:{:}".format(flops, params))
 
   logger.log('Training-data : {:}'.format(train_data))
