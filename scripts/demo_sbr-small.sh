@@ -2,7 +2,18 @@
 CUDA_VISIBLE_DEVICES=0,1 python ./exps/lk_main.py \
 	--train_lists ./cache_data/lists/300VW/300VW.train.lst001.none \
 	              ./cache_data/lists/300VW/300VW.train.lst002.none \
+	              ./cache_data/lists/300VW/300VW.train.lst015.none \
+	              ./cache_data/lists/300VW/300VW.train.lst112.none \
+	              ./cache_data/lists/300VW/300VW.train.lst119.none \
+	              ./cache_data/lists/300VW/300VW.train.lst144.none \
 	              ./cache_data/lists/300VW/300VW.train.lst160.none \
+	              ./cache_data/lists/300VW/300VW.train.lst115.none \
+	              ./cache_data/lists/300VW/300VW.train.lst046.none \
+	              ./cache_data/lists/300VW/300VW.train.lst049.none \
+	              ./cache_data/lists/300VW/300VW.train.lst059.none \
+	              ./cache_data/lists/300VW/300VW.train.lst204.none \
+	              ./cache_data/lists/300VW/300VW.train.lst225.none \
+	              ./cache_data/lists/300VW/300VW.train.lst223.none \
 	              ./cache_data/lists/300W/300w.train.DET \
 	--eval_ilists ./cache_data/lists/demo/demo-sbr.lst \
 	--num_pts 68 \
