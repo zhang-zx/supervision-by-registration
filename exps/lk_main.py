@@ -24,6 +24,7 @@ from log_utils import Logger, AverageMeter, time_for_file, convert_secs2time, ti
 from config_utils import load_configure
 from models import obtain_LK as obtain_model, remove_module_dict
 from optimizer import obtain_optimizer
+from thop import profile
 
 def main(args):
   assert torch.cuda.is_available(), 'CUDA is not available.'
@@ -97,6 +98,8 @@ def main(args):
   net = obtain_model(model_config, lk_config, args.num_pts + 1)
   assert model_config.downsample == net.downsample, 'downsample is not correct : {} vs {}'.format(model_config.downsample, net.downsample)
   logger.log("=> network :\n {}".format(net))
+  flops, params = profile(net, input_size=(1, 3, 224, 224))
+  logger.log("flops:{:}, params:{:}".format(flops, params))
 
   logger.log('Training-data : {:}'.format(train_data))
   for i, eval_loader in enumerate(eval_loaders):
