@@ -25,8 +25,8 @@ def visualize(args):
   meta1 = Path(args.meta + 'eval-start-eval-00-01.pth')
   meta2 = Path(args.meta + args.model)
   save = Path(args.save)
-  assert meta1.exists(), 'The model path {:} does not exist'
-  assert meta2.exists(), 'The model path {:} does not exist'
+  assert meta1.exists(), 'The model path ' + str(meta1) + ' does not exist'
+  assert meta2.exists(), 'The model path ' + str(meta2) + ' does not exist'
   xmeta1 = Eval_Meta()
   xmeta1.load(meta1)
   xmeta2 = Eval_Meta()
