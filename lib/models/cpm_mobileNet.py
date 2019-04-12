@@ -179,15 +179,10 @@ class MobileNetV2(nn.Module):
         return batch_cpms, batch_locs, batch_scos
 
 
-def cpm_vgg16(config, pts):
+def cpm_mobile(config, pts):
     print('Initialize cpm-vgg16 with configure : {}'.format(config))
     model = MobileNetV2(config, pts)
     model.apply(weights_init_cpm)
-
-    # if config.pretrained:
-    #     print('vgg16_base use pre-trained model')
-    #     weights = model_zoo.load_url(model_urls)
-    #     model.load_state_dict(weights, strict=False)
     return model
 
 
