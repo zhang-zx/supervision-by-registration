@@ -9,6 +9,7 @@ from .cpm_vgg11 import cpm_vgg11
 from .LK import LK
 from .cpm_small import cpm_small
 from .cpm_mobileNet import cpm_mobile
+from .mobileNet import mobileNet
 
 def obtain_model(configure, points):
   if configure.arch == 'cpm_vgg16':
@@ -19,6 +20,8 @@ def obtain_model(configure, points):
     net = cpm_small(configure, points)
   elif configure.arch == 'mobile':
     net = cpm_mobile(configure, points)
+  elif configure.arch == 'mobileNet':
+    net = mobileNet(configure, points)
   else:
     raise TypeError('Unkonw type : {:}'.format(configure.arch))
   return net
