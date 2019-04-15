@@ -15,6 +15,7 @@ from copy import deepcopy
 from .model_utils import get_parameters
 from .basic_batch import find_tensor_peak_batch
 from .initialization import weights_init_cpm
+from .initialization import weights_init_kaiming
 
 
 def conv_bn(inp, oup, stride):

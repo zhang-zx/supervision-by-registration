@@ -17,3 +17,14 @@ def weights_init_cpm(m):
   elif classname.find('BatchNorm2d') != -1:
     m.weight.data.fill_(1)
     m.bias.data.zero_()
+
+def weights_init_kaiming(m):
+  classname = m.__class__.__name__
+  if classname.find('Conv') != -1:
+    m.weight.data = init.kaiming_normal(m.weight.data)
+    if m.bias is not None: m.bias.data.zero_()
+  elif classname.find('BatchNorm2d') != -1:
+    m.weight.data.normal_(1.0, 0.02)
+    m.bias.data.fill_(0)
+    #m.weight.data.fill_(1)
+    #m.bias.data.zero_()
