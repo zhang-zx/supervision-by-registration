@@ -153,7 +153,7 @@ class MobileNetV2(nn.Module):
             {'params': get_parameters(self.CPM_feature, bias=True), 'lr': base_lr * 2, 'weight_decay': 0},
             ]
         for stage in self.stages:
-            params_dict.append({'params': self.features.parameters(), 'lr': base_lr, 'weight_decay': base_weight_decay})
+            params_dict.append({'params': stage.parameters(), 'lr': base_lr, 'weight_decay': base_weight_decay})
             # params_dict.append(
             #     {'params': get_parameters(stage, bias=False), 'lr': base_lr * 4, 'weight_decay': base_weight_decay})
             # params_dict.append({'params': get_parameters(stage, bias=True), 'lr': base_lr * 8, 'weight_decay': 0})
