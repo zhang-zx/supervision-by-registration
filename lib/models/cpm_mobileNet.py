@@ -83,14 +83,14 @@ class MobileNetV2(nn.Module):
 
         block = InvertedResidual
         input_channel = 32
-        last_channel = 512
+        last_channel = 64
         interverted_residual_setting = [
             # t, c, n, s
             [1, 16, 1, 1],
             [6, 24, 2, 2],
             [6, 32, 3, 2],
-            [6, 64, 4, 2],
-            [6, 96, 3, 1],
+            # [6, 64, 4, 2],
+            # [6, 96, 3, 1],
             # [6, 160, 3, 2],
             # [6, 320, 1, 1],
         ]
@@ -114,8 +114,8 @@ class MobileNetV2(nn.Module):
         self.features = nn.Sequential(*self.features)
 
         self.CPM_feature = nn.Sequential(
-            nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU(inplace=True),  # CPM_1
-            nn.Conv2d(256, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True))  # CPM_2
+            nn.Conv2d(64, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),  # CPM_1
+            nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True))  # CPM_2
 
         assert self.config.stages >= 1, 'stages of cpm must >= 1 not : {:}'.format(self.config.stages)
         stage1 = nn.Sequential(
