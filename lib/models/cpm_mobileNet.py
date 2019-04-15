@@ -21,7 +21,7 @@ def conv_bn(inp, oup, stride):
     return nn.Sequential(
         nn.Conv2d(inp, oup, 3, stride, 1, bias=False),
         nn.BatchNorm2d(oup),
-        nn.ReLU6(inplace=True)
+        nn.ReLU(inplace=True)
     )
 
 
@@ -29,7 +29,7 @@ def conv_1x1_bn(inp, oup):
     return nn.Sequential(
         nn.Conv2d(inp, oup, 1, 1, 0, bias=False),
         nn.BatchNorm2d(oup),
-        nn.ReLU6(inplace=True)
+        nn.ReLU(inplace=True)
     )
 
 
@@ -47,7 +47,7 @@ class InvertedResidual(nn.Module):
                 # dw
                 nn.Conv2d(hidden_dim, hidden_dim, 3, stride, 1, groups=hidden_dim, bias=False),
                 nn.BatchNorm2d(hidden_dim),
-                nn.ReLU6(inplace=True),
+                nn.ReLU(inplace=True),
                 # pw-linear
                 nn.Conv2d(hidden_dim, oup, 1, 1, 0, bias=False),
                 nn.BatchNorm2d(oup),
@@ -57,11 +57,11 @@ class InvertedResidual(nn.Module):
                 # pw
                 nn.Conv2d(inp, hidden_dim, 1, 1, 0, bias=False),
                 nn.BatchNorm2d(hidden_dim),
-                nn.ReLU6(inplace=True),
+                nn.ReLU(inplace=True),
                 # dw
                 nn.Conv2d(hidden_dim, hidden_dim, 3, stride, 1, groups=hidden_dim, bias=False),
                 nn.BatchNorm2d(hidden_dim),
-                nn.ReLU6(inplace=True),
+                nn.ReLU(inplace=True),
                 # pw-linear
                 nn.Conv2d(hidden_dim, oup, 1, 1, 0, bias=False),
                 nn.BatchNorm2d(oup),
@@ -184,17 +184,3 @@ def cpm_mobile(config, pts):
     model = MobileNetV2(config, pts)
     model.apply(weights_init_cpm)
     return model
-
-
-if __name__ == '__main__':
-    from ..config_utils import load_configure
-    from ..optimizer import obtain_optimizer
-    model_config = load_configure('../../configs/Detector.config', None)
-    opt_config = load_configure('../../configs/SGD.config', None)
-    net = MobileNetV2(model_config, 68 + 1)
-    if hasattr(net, 'specify_parameter'):
-        net_param_dict = net.specify_parameter(0.00005, 0.0005)
-    else:
-        net_param_dict = net.parameters()
-    # pdb.set_trace()
-    optimizer, scheduler, criterion = obtain_optimizer(net_param_dict, opt_config, None)
