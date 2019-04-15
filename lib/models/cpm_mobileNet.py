@@ -142,8 +142,8 @@ class MobileNetV2(nn.Module):
 
     def specify_parameter(self, base_lr, base_weight_decay):
         params_dict = [
-            {'params': get_parameters(self.features, bias=False), 'lr': base_lr, 'weight_decay': base_weight_decay},
-            {'params': get_parameters(self.features, bias=True), 'lr': base_lr * 2, 'weight_decay': 0},
+            {'params': self.features.parameters(), 'lr': base_lr, 'weight_decay': base_weight_decay},
+            # {'params': get_parameters(self.features, bias=True), 'lr': base_lr * 2, 'weight_decay': 0},
             {'params': get_parameters(self.CPM_feature, bias=False), 'lr': base_lr, 'weight_decay': base_weight_decay},
             {'params': get_parameters(self.CPM_feature, bias=True), 'lr': base_lr * 2, 'weight_decay': 0},
             ]
