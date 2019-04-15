@@ -83,7 +83,7 @@ class MobileNetV2(nn.Module):
 
         block = InvertedResidual
         input_channel = 32
-        last_channel = 1280
+        last_channel = 512
         interverted_residual_setting = [
             # t, c, n, s
             [1, 16, 1, 1],
