@@ -113,36 +113,36 @@ class MobileNetV2(nn.Module):
             nn.Conv2d(32, 16, kernel_size=3, padding=1), nn.ReLU(inplace=True))  # CPM_2
 
         assert self.config.stages >= 1, 'stages of cpm must >= 1 not : {:}'.format(self.config.stages)
-        t, c, n, s = 1, pts_num, 2, 1
-        input_channel = 16
-        stages = list()
-        for i in range(self.config.stages):
-            stage = list()
-            output_channel = int(c)
-            stage.append(block(input_channel, output_channel, s, expand_ratio=t))
-            stages.append(nn.Sequential(*stage))
-            input_channel = 16 + output_channel
+        # t, c, n, s = 1, pts_num, 2, 1
+        # input_channel = 16
+        # stages = list()
+        # for i in range(self.config.stages):
+        #     stage = list()
+        #     output_channel = int(c)
+        #     stage.append(block(input_channel, output_channel, s, expand_ratio=t))
+        #     stages.append(nn.Sequential(*stage))
+        #     input_channel = 16 + output_channel
         #
-        # stage1 = nn.Sequential(
-        #     nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
-        #     nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
-        #     nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
-        #     nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU(inplace=True),
-        #     nn.Conv2d(128, 512, kernel_size=1, padding=0), nn.ReLU(inplace=True),
-        #     nn.Conv2d(512, pts_num, kernel_size=1, padding=0))
-        # stages = [stage1]
-        # for i in range(1, self.config.stages):
-        #     stagex = nn.Sequential(
-        #         nn.Conv2d(128 + pts_num, 128, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
-        #         nn.Conv2d(128, 128, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
-        #         nn.Conv2d(128, 128, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
-        #         nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
-        #         nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
-        #         nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
-        #         nn.Conv2d(128, 128, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
-        #         nn.Conv2d(128, 128, kernel_size=1, padding=0), nn.ReLU(inplace=True),
-        #         nn.Conv2d(128, pts_num, kernel_size=1, padding=0))
-        #     stages.append(stagex)
+        stage1 = nn.Sequential(
+            nn.Conv2d(16, 16, kernel_size=3, padding=1), nn.ReLU(inplace=True),
+            nn.Conv2d(16, 16, kernel_size=3, padding=1), nn.ReLU(inplace=True),
+            nn.Conv2d(16, 16, kernel_size=3, padding=1), nn.ReLU(inplace=True),
+            nn.Conv2d(16, 16, kernel_size=3, padding=1), nn.ReLU(inplace=True),
+            nn.Conv2d(16, 64, kernel_size=1, padding=0), nn.ReLU(inplace=True),
+            nn.Conv2d(64, pts_num, kernel_size=1, padding=0))
+        stages = [stage1]
+        for i in range(1, self.config.stages):
+            stagex = nn.Sequential(
+                nn.Conv2d(16 + pts_num, 16, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
+                nn.Conv2d(16, 16, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
+                # nn.Conv2d(16, 16, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
+                nn.Conv2d(16, 16, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+                # nn.Conv2d(16, 16, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+                nn.Conv2d(16, 16, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+                nn.Conv2d(16, 16, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+                nn.Conv2d(16, 16, kernel_size=1, padding=0), nn.ReLU(inplace=True),
+                nn.Conv2d(16, pts_num, kernel_size=1, padding=0))
+            stages.append(stagex)
         self.stages = nn.ModuleList(stages)
 
     def specify_parameter(self, base_lr, base_weight_decay):
@@ -153,10 +153,10 @@ class MobileNetV2(nn.Module):
             {'params': get_parameters(self.CPM_feature, bias=True), 'lr': base_lr * 2, 'weight_decay': 0},
             ]
         for stage in self.stages:
-            params_dict.append({'params': stage.parameters(), 'lr': base_lr, 'weight_decay': base_weight_decay})
-            # params_dict.append(
-            #     {'params': get_parameters(stage, bias=False), 'lr': base_lr * 4, 'weight_decay': base_weight_decay})
-            # params_dict.append({'params': get_parameters(stage, bias=True), 'lr': base_lr * 8, 'weight_decay': 0})
+            # params_dict.append({'params': stage.parameters(), 'lr': base_lr, 'weight_decay': base_weight_decay})
+            params_dict.append(
+                {'params': get_parameters(stage, bias=False), 'lr': base_lr * 4, 'weight_decay': base_weight_decay})
+            params_dict.append({'params': get_parameters(stage, bias=True), 'lr': base_lr * 8, 'weight_decay': 0})
         return params_dict
 
     # return : cpm-stages, locations
