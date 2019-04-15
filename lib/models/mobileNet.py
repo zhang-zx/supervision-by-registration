@@ -109,11 +109,11 @@ class MobileNetV2(nn.Module):
         self.features = nn.Sequential(*self.features)
 
         self.CPM_feature = nn.Sequential(
-            nn.Conv2d(32, 16, kernel_size=3, padding=1), nn.ReLU(inplace=True),  # CPM_1
-            nn.Conv2d(16, 16, kernel_size=3, padding=1), nn.ReLU(inplace=True))  # CPM_2
+            nn.Conv2d(32, 32, kernel_size=3, padding=1), nn.ReLU(inplace=True),  # CPM_1
+            nn.Conv2d(32, 16, kernel_size=3, padding=1), nn.ReLU(inplace=True))  # CPM_2
 
         assert self.config.stages >= 1, 'stages of cpm must >= 1 not : {:}'.format(self.config.stages)
-        t, c, n, s = 1, pts_num, 1, 1
+        t, c, n, s = 1, pts_num, 2, 1
         input_channel = 16
         stages = list()
         for i in range(self.config.stages):
