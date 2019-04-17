@@ -136,7 +136,7 @@ class MobileNetV2(nn.Module):
                 nn.Conv2d(16 + pts_num, 16, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
                 nn.Conv2d(16, 16, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
                 # nn.Conv2d(16, 16, kernel_size=7, dilation=1, padding=3), nn.ReLU(inplace=True),
-                nn.Conv2d(16, 16, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
+                # nn.Conv2d(16, 16, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
                 # nn.Conv2d(16, 16, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
                 nn.Conv2d(16, 16, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),
                 nn.Conv2d(16, 16, kernel_size=3, dilation=1, padding=1), nn.ReLU(inplace=True),

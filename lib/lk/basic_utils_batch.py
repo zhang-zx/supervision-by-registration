@@ -39,8 +39,6 @@ def warp_feature_batch(feature, pts_location, patch_size):
  
   affine_parameter = [(crop_box[:,2]-crop_box[:,0])/2, crop_box[:,0]*0, (crop_box[:,2]+crop_box[:,0])/2,
                       crop_box[:,0]*0, (crop_box[:,3]-crop_box[:,1])/2, (crop_box[:,3]+crop_box[:,1])/2]
-  #affine_parameter = [(crop_box[:,2]-crop_box[:,0])/2, MU.np2variable(torch.zeros(num_pts),feature.is_cuda,False), (crop_box[:,2]+crop_box[:,0])/2,
-  #                    MU.np2variable(torch.zeros(num_pts),feature.is_cuda,False), (crop_box[:,3]-crop_box[:,1])/2, (crop_box[:,3]+crop_box[:,1])/2]
   theta = torch.stack(affine_parameter, 1).view(num_pts, 2, 3)
   feature = feature.expand(num_pts,C, H, W)
   grid_size = torch.Size([num_pts, 1, 2*patch_size+1, 2*patch_size+1])
