@@ -40,10 +40,10 @@ if __name__ == '__main__':
   assert HOME_STR in os.environ, 'Doest not find the HOME dir : {}'.format(HOME_STR)
 
   this_dir = osp.dirname(os.path.abspath(__file__))
-  demo_dir = osp.join(this_dir, 'cache', 'test')
-  list_dir = osp.join(this_dir, 'lists', 'test')
+  demo_dir = osp.join(this_dir, 'cache', 'te')
+  list_dir = osp.join(this_dir, 'lists', 'te')
   print ('This dir : {}, HOME : [{}] : {}'.format(this_dir, HOME_STR, os.environ[HOME_STR]))
-  generate(demo_dir, list_dir, 'demo-sbr.lst', 285)
+  generate(demo_dir, list_dir, 'demo-sbr.lst', 199)
 
   #demo_dir = osp.join(this_dir, 'cache', 'demo-pams')
   #list_dir = osp.join(this_dir, 'lists', 'demo')
