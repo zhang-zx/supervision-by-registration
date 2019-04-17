@@ -21,7 +21,7 @@ def generate(demo_dir, list_dir, savename, check):
   assert num_image == check, 'The number of images is not right vs. {:}'.format(num_image)
   if not osp.isdir(list_dir): os.makedirs(list_dir)
   
-  gap, x1, y1, x2, y2 = 5, 0, 0, 1080, 1920
+  gap, x1, y1, x2, y2 = 5, 0, 0, 760, 1156
 
   imagelist.sort()
 
