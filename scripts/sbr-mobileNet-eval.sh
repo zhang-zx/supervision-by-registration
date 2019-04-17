@@ -15,7 +15,7 @@ CUDA_VISIBLE_DEVICES=2,3 python ./exps/eval_main.py \
 	              ./cache_data/lists/300VW/300VW.train.lst225.none \
 	              ./cache_data/lists/300VW/300VW.train.lst223.none \
 	              ./cache_data/lists/300W/300w.train.DET \
-	--eval_ilists ./cache_data/lists/test/demo-sbr.lst \
+	--eval_ilists ./cache_data/lists/te/demo-sbr.lst \
 	              ./cache_data/lists/300VW/300VW.test-1.lst547\
 	--num_pts 68 \
 	--model_config ./configs/Detector-mobile.config \
