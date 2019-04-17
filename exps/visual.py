@@ -20,7 +20,8 @@ from xvision import draw_image_by_points
 from xvision import Eval_Meta
 
 def visualize(args):
-  print ('The result file is {:}'.format(args.meta))
+  print('The begin file is {:}'.format(args.begin))
+  print ('The result file is {:}'.format(args.last))
   print ('The save path is {:}'.format(args.save))
   meta1 = Path(args.begin)
   meta2 = Path(args.last)
