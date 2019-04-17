@@ -22,8 +22,8 @@ from xvision import Eval_Meta
 def visualize(args):
   print ('The result file is {:}'.format(args.meta))
   print ('The save path is {:}'.format(args.save))
-  meta1 = Path(args.meta + 'eval-start-eval-00-01.pth')
-  meta2 = Path(args.meta + args.model)
+  meta1 = Path(args.begin)
+  meta2 = Path(args.last)
   save = Path(args.save)
   assert meta1.exists(), 'The model path ' + str(meta1) + ' does not exist'
   assert meta2.exists(), 'The model path ' + str(meta2) + ' does not exist'
@@ -59,8 +59,8 @@ def visualize(args):
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='visualize the results on a single ', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-  parser.add_argument('--meta',            type=str,   help='The evaluation image path.')
-  parser.add_argument('--model',           type=str,   help='model to compare')
+  parser.add_argument('--begin',            type=str,   help='The evaluation image path.')
+  parser.add_argument('--last',           type=str,   help='model to compare')
   parser.add_argument('--save',            type=str,   help='The path to save the visualized results.')
   args = parser.parse_args()
   visualize(args)
