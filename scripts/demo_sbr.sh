@@ -3,6 +3,7 @@ CUDA_VISIBLE_DEVICES=2,3 python -W ignore ./exps/lk_main.py \
 	--train_lists ./cache_data/lists/300VW/300VW.train.lst.none  \
 	              ./cache_data/lists/300W/300w.train.DET \
 	--eval_ilists  ./cache_data/lists/te/demo-sbr.lst \
+	               ./cache_data/lists/300VW/300VW.test-1.lst547\
 	--num_pts 68 \
 	--model_config ./configs/Detector.config \
 	--opt_config   ./configs/LK.SGD.config \
