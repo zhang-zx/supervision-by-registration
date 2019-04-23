@@ -36,12 +36,15 @@ def visualize(args):
   print ('this meta file has {:} predictions'.format(len(xmeta1)))
   if not save.exists(): os.makedirs( args.save )
   for i in range(len(xmeta1)):
+    # import pdb 
+    # pdb.set_trace()
     image1, prediction1 = xmeta1.image_lists[i], xmeta1.predictions[i]
-    name = osp.basename(image1)
+   # name = osp.basename(image1)
     image1 = draw_image_by_points(image1, prediction1, 2, (255, 0, 0), False, False)
     image2, prediction2 = xmeta2.image_lists[i], xmeta2.predictions[i]
-    name = osp.basename(image2)
+   # name = osp.basename(image2)
     image2 = draw_image_by_points(image2, prediction2, 2, (255, 0, 0), False, False)
+    name = 'image{:05d}.png'.format(i)
     path = save / name
     images = [image1, image2]
     widths, heights = zip(*(i.size for i in images))
@@ -55,7 +58,7 @@ def visualize(args):
       image.paste(im, (x_offset, 0))
       x_offset += im.size[0]
     image.save(path)
-    print ('{:03d}-th image is saved into {:}'.format(i, path))
+    print ('{:05d}-th image is saved into {:}'.format(i, path))
 
 
 if __name__ == '__main__':
